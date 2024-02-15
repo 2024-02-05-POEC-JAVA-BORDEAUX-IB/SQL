@@ -145,3 +145,9 @@ SELECT station
 FROM `2021`
 WHERE station LIKE '%mairie%' OR station LIKE '%ville%'
 ORDER BY station ASC;
+
+-- 4. La somme des fréquentations par arrondissements de Paris
+SELECT DISTINCT city, paris_district, SUM(trafic) OVER (PARTITION BY paris_district) AS total
+FROM `2021`
+WHERE city = 'Paris' AND paris_district != ''
+ORDER BY total DESC;
